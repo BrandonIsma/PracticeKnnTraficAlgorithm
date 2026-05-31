@@ -6,10 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score
 
-
-
 np.random.seed(42)
-
 # Fluido (17 registros)
 fluido_vel = np.random.randint(60, 81, 17)
 fluido_veh = np.random.randint(10, 31, 17)
@@ -45,12 +42,8 @@ df = pd.DataFrame({
     "Vehiculos": vehiculos,
     "Estado": estado
 })
-
-
 X = df[["Velocidad", "Vehiculos"]]
 y = df["Estado"]
-
-
 
 X_train, X_test, y_train, y_test = train_test_split(
     X,
@@ -60,21 +53,13 @@ X_train, X_test, y_train, y_test = train_test_split(
     stratify=y
 )
 
-
 k = 3
-
 modelo = KNeighborsClassifier(n_neighbors=k)
-
 modelo.fit(X_train, y_train)
-
 y_pred = modelo.predict(X_test)
 
-
 accuracy = accuracy_score(y_test, y_pred)
-
-print("\n==============================")
 print("RESULTADOS DEL MODELO KNN")
-print("==============================")
 
 print(f"\nDatos de entrenamiento: {len(X_train)}")
 print(f"Datos de prueba: {len(X_test)}")
@@ -90,18 +75,12 @@ resultados["Predicho"] = y_pred
 resultados["Correcto"] = (
     resultados["Real"] == resultados["Predicho"]
 )
-
-print("\n==============================")
 print("CASOS DE PRUEBA")
-print("==============================")
 
 print(resultados)
 
-
 plt.figure(figsize=(10,7))
-
 # ENTRENAMIENTO
-
 colores = {
     "Fluido": "green",
     "Moderado": "orange",
@@ -120,9 +99,7 @@ for clase in y_train.unique():
         alpha=0.7,
         label=f"Entrenamiento {clase}"
     )
-
 # PRUEBA CORRECTA
-
 correctos = resultados["Correcto"] == True
 
 plt.scatter(
@@ -135,9 +112,7 @@ plt.scatter(
     linewidths=2,
     label="Prueba correcta"
 )
-
 # PRUEBA INCORRECTA
-
 incorrectos = resultados["Correcto"] == False
 
 plt.scatter(
@@ -149,7 +124,6 @@ plt.scatter(
     linewidths=3,
     label="Prueba incorrecta"
 )
-
 plt.title(
     f"KNN para Clasificación de Tráfico\nPrecisión = {accuracy*100:.2f}%"
 )
